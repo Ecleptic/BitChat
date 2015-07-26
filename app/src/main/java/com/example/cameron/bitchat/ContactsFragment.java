@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -19,7 +20,7 @@ import android.widget.SimpleCursorAdapter;
  * {@link com.example.cameron.bitchat.ContactsFragment.Listener} interface
  * to handle interaction events.
  */
-public class ContactsFragment extends Fragment {
+public class ContactsFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private static final String TAG = "ContactsFragment";
 
@@ -35,6 +36,8 @@ public class ContactsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_contacts, null);
         ListView listView = (ListView) v.findViewById(R.id.list);
+        listView.setOnItemClickListener(this);
+
 
         String[] columns = {ContactsContract.CommonDataKinds.Phone.NUMBER,
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
@@ -43,8 +46,8 @@ public class ContactsFragment extends Fragment {
 
 
         Cursor cursor = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                new String[]{ContactsContract.CommonDataKinds.Phone._ID,ContactsContract.CommonDataKinds.Phone.NUMBER,
-                        ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME }, null, null, null);
+                new String[]{ContactsContract.CommonDataKinds.Phone._ID, ContactsContract.CommonDataKinds.Phone.NUMBER,
+                        ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME}, null, null, null);
 
         listView.setAdapter(new SimpleCursorAdapter(
                 getActivity(),
@@ -55,6 +58,16 @@ public class ContactsFragment extends Fragment {
                 0));
 
         return v;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Cursor cursor = ((SimpleCursorAdapter) parent.getAdapter()).getCursor();
+        cursor.moveToPosition(position);
+
+        Log.d(TAG, "Name is:" + cursor.getString(2));
+        Log.d(TAG, "Phone number is:" + cursor.getString(1));
+
     }
 
     @Override
