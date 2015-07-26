@@ -1,9 +1,12 @@
 package com.example.cameron.bitchat;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.parse.Parse;
 
 
 public class ContactsActivity extends ActionBarActivity {
@@ -12,6 +15,13 @@ public class ContactsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
+
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "Yjs3YwWxnqDxrr3Oa8HqEqg8qYr3WcYJ8RCZ1Zko", "XxXChGHuUV1h8qb6fpeayuwuKUh8TK9gDG23Yi0m");
+
+        Intent i = new Intent(this, SignInActivity.class);
+        startActivity(i);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new ContactsFragment())

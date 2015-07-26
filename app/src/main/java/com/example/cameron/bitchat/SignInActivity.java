@@ -1,17 +1,31 @@
 package com.example.cameron.bitchat;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 
 public class SignInActivity extends ActionBarActivity {
+    private static final String TAG = "SignInActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+// Gets a phone number
+        TelephonyManager telephonyManager = (TelephonyManager) this.getApplicationContext()
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        String phoneNumber = telephonyManager.getLine1Number();
+        Log.d(TAG, "Phone number is " + phoneNumber);
+        EditText userNumber = (EditText)findViewById(R.id.user_number);
+        ////////////////
+        userNumber.setText(phoneNumber);
+        ////////////////
     }
 
     @Override
