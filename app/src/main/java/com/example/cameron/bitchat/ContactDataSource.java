@@ -62,11 +62,12 @@ public class ContactDataSource implements LoaderManager.LoaderCallbacks<Cursor> 
             phoneNumber = phoneNumber.replaceAll("[^0-9]","");
 
             numbers.add(phoneNumber);
+            numbers.add("Ecleptic");
             data.moveToNext();
         }
 
         ParseQuery<ParseUser> query = ParseUser.getQuery();
-        query.whereContainedIn("username",numbers);
+//        query.whereContainedIn("username",numbers);
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> parseUsers, ParseException e) {
@@ -74,7 +75,7 @@ public class ContactDataSource implements LoaderManager.LoaderCallbacks<Cursor> 
                     ArrayList<Contact> contacts = new ArrayList<Contact>();
                     for (ParseUser parseUser: parseUsers){
                         Contact contact = new Contact();
-                        contact.setName((String) parseUser.get("name"));
+                        contact.setName( parseUser.getString("name"));
                         contact.setPhoneNumber(parseUser.getUsername());
                         contacts.add(contact);
                     }

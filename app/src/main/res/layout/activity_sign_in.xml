@@ -2,6 +2,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/primary_dark"
               tools:context="com.example.cameron.bitchat.SignInActivity">
 
     <LinearLayout
@@ -15,20 +16,26 @@
             android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/name_hint"/>
+            android:hint="@string/name_hint"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"/>
 
         <EditText
             android:id="@+id/user_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password_hint"
-            android:password="true"/>
+            android:password="true"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"/>
 
         <EditText
             android:id="@+id/user_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/user_number"/>
+            android:hint="@string/user_number"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,14 +47,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
-                android:text="@string/sign_up"/>
+                android:background="@drawable/mybutton"
+                android:padding="10dp"
+                android:text="@string/sign_up"
+                android:textColor="#ffffff"/>
+
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:id="@+id/log_in_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
-                android:text="@string/log_in"/>
+                android:background="@drawable/mybutton"
+                android:padding="10dp"
+                android:text="@string/log_in"
+                android:textColor="#ffffff"/>
         </LinearLayout>
     </LinearLayout>
 
