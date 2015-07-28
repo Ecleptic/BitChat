@@ -1,11 +1,8 @@
 package com.example.cameron.bitchat;
 
-
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.transition.ChangeTransform;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,7 +18,6 @@ public class ContactsActivity extends ActionBarActivity implements ContactsFragm
         setContentView(R.layout.activity_contacts);
 
         Parse.enableLocalDatastore(this);
-
 
         Parse.initialize(this, "dyW2LlwKDEc4ODn7Go2w0yZ1AuxUkoQprvyfUmon",
                 "vE81UZq32RJceCtezEfgiJXmt6ITIPWBLL8EaW7k");

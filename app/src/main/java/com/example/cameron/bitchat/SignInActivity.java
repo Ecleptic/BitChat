@@ -16,6 +16,22 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import android.content.Context;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.parse.LogInCallback;
+import com.parse.LogOutCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 
 public class SignInActivity extends ActionBarActivity {
@@ -32,7 +48,7 @@ public class SignInActivity extends ActionBarActivity {
         TelephonyManager telephonyManager = (TelephonyManager)this.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
         String phoneNumber = telephonyManager.getLine1Number();
         mUserNumber = (EditText)findViewById(R.id.user_number);
-        mUserNumber.setText(phoneNumber);
+//        mUserNumber.setText(phoneNumber);
 
         mPassword = (EditText)findViewById(R.id.user_password);
         mName = (EditText)findViewById(R.id.user_name);

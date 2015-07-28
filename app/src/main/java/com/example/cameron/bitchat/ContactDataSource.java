@@ -59,8 +59,7 @@ public class ContactDataSource implements LoaderManager.LoaderCallbacks<Cursor> 
         data.moveToFirst();
         while(!data.isAfterLast()){
             String phoneNumber = data.getString(1);
-            phoneNumber = phoneNumber.replaceAll("-","");
-            phoneNumber = phoneNumber.replaceAll(" ","");
+            phoneNumber = phoneNumber.replaceAll("[^0-9]","");
 
             numbers.add(phoneNumber);
             data.moveToNext();

@@ -1,9 +1,11 @@
 package com.example.cameron.bitchat;
 
+import android.annotation.TargetApi;
+import android.graphics.Color;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -17,12 +19,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 import java.util.Date;
 
 
 public class ChatActivity extends ActionBarActivity implements View.OnClickListener,
-        MessageDataSource.Listener {
+        MessageDataSource.Listener{
 
     public static final String CONTACT_NUMBER = "CONTACT_NUMBER";
     public static final String TAG = "ChatActivity";
@@ -55,11 +59,11 @@ public class ChatActivity extends ActionBarActivity implements View.OnClickListe
 
         mMessages = new ArrayList<Message>();
 
-        mListView = (ListView) findViewById(R.id.messages_list);
+        mListView = (ListView)findViewById(R.id.messages_list);
         mAdapter = new MessagesAdapter(mMessages);
         mListView.setAdapter(mAdapter);
 
-        Button sendMessage = (Button) findViewById(R.id.send_message);
+        Button sendMessage = (Button)findViewById(R.id.send_message);
         sendMessage.setOnClickListener(this);
 
         MessageDataSource.fetchMessages(ContactDataSource.getCurrentUser().getPhoneNumber(),
@@ -68,7 +72,7 @@ public class ChatActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     public void onClick(View v) {
-        EditText newMessageView = (EditText) findViewById(R.id.new_message);
+        EditText newMessageView = (EditText)findViewById(R.id.new_message);
         String newMessage = newMessageView.getText().toString();
         newMessageView.setText("");
         Message message = new Message(newMessage, ContactDataSource.getCurrentUser().getPhoneNumber());
@@ -80,7 +84,7 @@ public class ChatActivity extends ActionBarActivity implements View.OnClickListe
     public void onFetchedMessages(ArrayList<Message> messages) {
         mMessages.clear();
         addMessages(messages);
-        mHandler.postDelayed(mRunnable, 1000);
+        mHandler.postDelayed(mRunnable,1000);
 
 
     }
@@ -90,10 +94,10 @@ public class ChatActivity extends ActionBarActivity implements View.OnClickListe
         addMessages(messages);
     }
 
-    private void addMessages(ArrayList<Message> messages) {
+    private void addMessages(ArrayList<Message> messages){
         mMessages.addAll(messages);
         mAdapter.notifyDataSetChanged();
-        if (mMessages.size() > 0) {
+        if (mMessages.size() > 0){
             mListView.setSelection(mMessages.size() - 1);
             Message message = mMessages.get(mMessages.size() - 1);
             mLastMessageDate = message.getDate();
@@ -129,31 +133,31 @@ public class ChatActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     private class MessagesAdapter extends ArrayAdapter<Message> {
-        MessagesAdapter(ArrayList<Message> messages) {
+        MessagesAdapter(ArrayList<Message> messages){
             super(ChatActivity.this, R.layout.messages_list_item, R.id.message, messages);
         }
-
+        @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             convertView = super.getView(position, convertView, parent);
             Message message = getItem(position);
 
-            TextView nameView = (TextView) convertView.findViewById(R.id.message);
+            TextView nameView = (TextView)convertView.findViewById(R.id.message);
             nameView.setText(message.getText());
 
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) nameView.getLayoutParams();
-            int sdk = Build.VERSION.SDK_INT;
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)nameView.getLayoutParams();
 
-            if (message.getSender().equals(ContactDataSource.getCurrentUser().getPhoneNumber())) {
-                if (sdk >= 16) {
+            int sdk = Build.VERSION.SDK_INT;
+            if (message.getSender().equals(ContactDataSource.getCurrentUser().getPhoneNumber())){
+                if (sdk >= Build.VERSION_CODES.JELLY_BEAN) {
                     nameView.setBackground(getDrawable(R.drawable.bubble_right_green));
-                } else {
+                } else{
                     nameView.setBackgroundDrawable(getDrawable(R.drawable.bubble_right_green));
                 }
                 layoutParams.gravity = Gravity.RIGHT;
-            } else {
-                if (sdk >= 16) {
+            }else{
+                if (sdk >= Build.VERSION_CODES.JELLY_BEAN) {
                     nameView.setBackground(getDrawable(R.drawable.bubble_left_gray));
-                } else {
+                } else{
                     nameView.setBackgroundDrawable(getDrawable(R.drawable.bubble_left_gray));
                 }
                 layoutParams.gravity = Gravity.LEFT;
