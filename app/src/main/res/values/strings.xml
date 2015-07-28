@@ -8,4 +8,6 @@
     <string name="sign_up">Sign Up</string>
     <string name="log_in">Login</string>
     <string name="user_number">Username</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="send">Send</string>
 </resources>
